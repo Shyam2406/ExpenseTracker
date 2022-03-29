@@ -8,7 +8,7 @@ const mongoose = require("mongoose")
 app.use(express.json())//read mobile and iphone data
 app.use(express.urlencoded ({extended:true}))
 
-
+const accountController = require("./controller/account-controller")
 const sessionController = require("./controller/session-controller")
 const roleController = require("./controller/role-controller")
 const userController = require("./controller/user-controller")
@@ -26,6 +26,7 @@ mongoose.connect('mongodb://localhost:27017/expensetracker',function(err){
         console.log("db coonect");
     }
 })
+
 
 //url pages
 app.get("/signup",function(req,res){
@@ -54,6 +55,17 @@ app.post("/users",userController.addUser)
 app.get("/users",userController.getAllUsers)
 app.put("/users",userController.updateUser)
 app.delete("/users/:userId",userController.deleteUser)
+//login validation by user
+app.post("/login",userController.login)
+
+
+//User Account
+app.post("/accounts",accountController.addAccount)
+app.get("/accounts",accountController.getAllAccount)
+app.put("/accounts",accountController.updateAccount)
+app.delete("/accounts/:accountId",accountController.deleteAccount)
+
+
 
 //category
 app.post("/categories",categoryController.addCategories)
@@ -86,6 +98,6 @@ app.get("/login",sessionController.login)
 app.post("/signup",sessionController.signup)
 app.post("/savedata",sessionController.savedata)
 
-app.listen(3000,function(){
-    console.log("Server Started on 3000")
+app.listen(5000,function(){
+    console.log("NodeJs Server Started on 5000")
 })

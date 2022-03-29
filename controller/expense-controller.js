@@ -9,7 +9,9 @@ module.exports.addExpense = function (req,res){
     
 
     let expense = new ExpenseModel({
+        ExpenseAmount:req.body.ExpenseAmount,
         ExpenseName:req.body.ExpenseName,
+        PaymentMethod:req.body.PaymentMethod,  
         ExpenseDetails:req.body.ExpenseDetails,
         user:req.body.user
     })
@@ -17,7 +19,7 @@ module.exports.addExpense = function (req,res){
     expense.save(function(err,success){
         if(err){
             // console.log(err)
-            res.json({msg:"SMW", status:-1 ,data:req.body})
+            res.json({msg:"Some Error!!!", status:-1 ,data:req.body})
         }
         else{
             res.json({msg:"Expense added", status:200, data:success})
@@ -60,11 +62,13 @@ module.exports.updateExpense = function(req,res){
 
      
     let expenseId =req.body.expenseId
+    let ExpenseAmount =req.body.ExpenseAmount
+    let PaymentMethod =req.body.PaymentMethod
     let ExpenseName =req.body.ExpenseName
     let ExpenseDetails =req.body.ExpenseDetails 
     
 
-    ExpenseModel.updateOne({_id:expenseId},{ExpenseName:ExpenseName,ExpenseDetails:ExpenseDetails},function(err,data){
+    ExpenseModel.updateOne({_id:expenseId},{ExpenseName:ExpenseName,ExpenseAmount:ExpenseAmount,PaymentMethod:PaymentMethod,ExpenseDetails:ExpenseDetails},function(err,data){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{

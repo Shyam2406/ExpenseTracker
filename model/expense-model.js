@@ -7,6 +7,14 @@ let ExpenseSchema =new mongoose.Schema({
         type:String
     },
 
+    ExpenseAmount:{
+        type:Number
+    },
+
+    PaymentMethod :{
+        type:String
+    },
+
     ExpenseDetails:{
         type:String
     },
