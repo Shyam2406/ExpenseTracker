@@ -3,7 +3,7 @@ const UserModel = require("../model/user-model")
 
 
 //add [ POST ]
-// url http://localhost:3000/users
+// url http://localhost:5000/users
 module.exports.addUser = function (req, res) {
 
     let firstName = req.body.firstName
@@ -76,6 +76,66 @@ module.exports.login = function(req,res){
     })
 
 }
+
+
+
+
+
+
+/* //Login validation
+//with login url
+module.exports.login = function(req,res){
+
+    let param_email = req.body.email
+    let param_password  = req.body.password 
+
+    let isCorrect = false; 
+
+    UserModel.findOne({email:param_email}).populate('role').exec(function(err,data){
+        if(data){
+            let ans =  bcrypt.compareSync(param_password,data.password)
+            if(ans == true){
+                    isCorrect = true
+            }
+        }
+
+        if (isCorrect == false) {
+            res.json({ msg: "Invalid Credentials...", data: req.body, status: -1 })//-1  [ 302 404 500 ]
+        } else {
+            res.json({ msg: "Login success....", data: data, status: 200 })//http status code 
+        }
+    });
+
+};
+
+module.exports.Adminlogin = function(req,res){
+    let id = '621320a1c1b8dd63c15075f2'
+    let param_password  = req.body.password 
+
+    let isCorrect = false; 
+
+    UserModel.findOne({_id: id}).populate('role').exec(function(err,data){
+        if(data){
+            let ans =  bcrypt.compareSync(param_password,data.password)
+            if(ans == true){
+                    isCorrect = true
+            }
+        }
+
+        if (isCorrect == false) {
+            res.json({ msg: "Invalid Credentials...", data: req.body, status: -1 })//-1  [ 302 404 500 ]
+        } else {
+            res.json({ msg: "Admin Login success....", data: data, status: 200 })//http status code 
+        }
+    });
+
+};
+ */
+
+
+
+
+
 
 //delete
 

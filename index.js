@@ -3,6 +3,7 @@ const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
 
+
 //middle ware
 
 app.use(express.json())//read mobile and iphone data
@@ -17,6 +18,10 @@ const subcategoryController= require("./controller/subcategory-controller")
 const billController = require("./controller/bill-controller")
 const expenseController = require("./controller/expense-controller")
 
+//for front end connection error solving
+var cors = require('cors')
+app.use(cors)
+
 //database
 mongoose.connect('mongodb://localhost:27017/expensetracker',function(err){
     if(err){
@@ -25,8 +30,8 @@ mongoose.connect('mongodb://localhost:27017/expensetracker',function(err){
     }else{
         console.log("db coonect");
     }
+    
 })
-
 
 //url pages
 app.get("/signup",function(req,res){
