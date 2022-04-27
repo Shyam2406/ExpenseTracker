@@ -15,7 +15,7 @@ module.exports.addSubcategory = function(req,res) {
         if(err){
             res.json({ msg: "SMW", data:err, status:-1})
         }else{
-            res.json({msg: "Signup done", data:data, status:200})
+            res.json({msg: "SubCategory Add", data:data, status:200})
         }
     })
 }

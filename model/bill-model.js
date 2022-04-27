@@ -7,6 +7,14 @@ let BillSchema =new mongoose.Schema({
         type:String
     },
 
+    billAmount:{
+        type:String
+    },
+
+    billDueDate:{
+        type:Date
+    },
+
     billCategoryName:{
         type:String
     },

@@ -11,6 +11,7 @@ module.exports.addUser = function (req, res) {
     let email = req.body.email
     let password = req.body.password
     let gender = req.body.gender
+    let isActive = req.body.isActive
     //encrypt 
 
     let encPassword = bcrypt.hashSync(password,10) //-->10 is display round..
@@ -21,34 +22,118 @@ module.exports.addUser = function (req, res) {
         firstName: firstName,
         lastName: lastName,
         email: email,
+        isActive: isActive,
         password: password,
         password: encPassword,
         gender: gender,
         role: role
     })
-    
-    user.save(function (err, data) {
-        if (err) {
-            res.json({ msg: "Something Went Wrong", data: err, status: -1 })//-1  [ 302 404 500 ]
-        } else {
-            res.json({ msg: "User Registration Success", data: data, status: 200 })//http status code 
-        }
-    })
 
+   /*  UserModel.find({"email":email},function(err,data){
+        if(data && data.lenth!= 0){
+            res.json({status:-1,data:req.body,msg:"email already used"})
+        }else{
+            user.save(function (err, data) {
+                if (err) {
+                    res.json({ msg: "Something Went Wrong", data: err, status: -1 })//-1  [ 302 404 500 ]
+                } else {
+                    res.json({ msg: "User Registration Success", data: data, status: 200 })//http status code 
+                }
+            })
+        
+        }
+
+
+    }) */
+
+    
+            user.save(function (err, data) {
+                if (err) {
+                    res.json({ msg: "Something Went Wrong", data: err, status: -1 })//-1  [ 302 404 500 ]
+                } else {
+                    res.json({ msg: "User Registration Success", data: data, status: 200 })//http status code 
+                }
+
+
+
+    })
+   
 
 }
 
 //list
 module.exports.getAllUsers = function (req, res) {
 
+
+    console.log("in get one user ");
+
+
     UserModel.find().populate("role").exec(function (err, data) {
         if (err) {
+            console.log("err",err)
+            res.json({ msg: "Some Error Occured", data: err, status: -1 })//-1  [ 302 404 500 ]
+        } else {
+                
+            res.json({ msg: "All Users ...", data: data, status: 200 })//http status code 
+        }
+    })
+}
+
+
+
+//list
+module.exports.getTotalUser = function (req, res) {
+
+    UserModel.find().populate("role").exec(function (err, data) {
+        if (err) {
+            console.log("err",err)
+            res.json({ msg: "Some Error Occured", data: err, status: -1 })//-1  [ 302 404 500 ]
+        } else {
+                
+            res.json({ msg: "Total user", data: data.length, status: 200 })//http status code 
+        }
+    })
+}
+
+
+
+// get user Byid 
+
+
+module.exports.getByIdUsers = function (req, res) {
+
+    let userId = req.params.userId
+
+    console.log("in one user ");
+
+
+    UserModel.findById({_id:userId},function (err, data) {
+        if (err) {
+            console.log("err",err)
+            res.json({ msg: "Some Error Occured", data: err, status: -1 })//-1  [ 302 404 500 ]
+        } else {
+                
+            res.json({ msg: "All Users ...", data: data, status: 200 })//http status code 
+        }
+    })
+}
+
+
+//count
+
+
+/* module.exports.getUsers = function (req, res) {
+
+    const users = UserModel.find().countDocuments().exec(function (err, data){
+        console.log(users);
+        if (err) {
+            console.log("err",err)
             res.json({ msg: "Some Error Occured", data: err, status: -1 })//-1  [ 302 404 500 ]
         } else {
             res.json({ msg: "All Users is ...", data: data, status: 200 })//http status code 
         }
     })
-}
+} */
 
 
 //Login validation
@@ -155,14 +240,15 @@ module.exports.deleteUser = function(req,res){
 
 //update 
 
-module.exports.updateUser = function(req,res){
+/* module.exports.updateUser = function(req,res){
         //update role set roleName = admin where roleId = 12121 
-        let userId = req.body.userId 
+        let userId = req.params.userId 
         let firstName = req.body.firstName
         let lastName = req.body.lastName
         let email  = req.body.email
         let password = req.body.password
         let gender = req.body.gender
+       
     
         UserModel.updateOne({_id:userId},{firstName:firstName,lastName:lastName,email:email,password:password,gender:gender},function(err,data){
             if(err){
@@ -171,4 +257,25 @@ module.exports.updateUser = function(req,res){
                 res.json({msg:"updated...",status:200,data:data})
             }
         })
+} */
+
+module.exports.updateByUserId = function(req,res){
+    //update role set roleName = admin where roleId = 12121 
+    let id = req.params.userId 
+    let firstName = req.body.firstName
+    let lastName = req.body.lastName
+    let email  = req.body.email
+    let password = req.body.password
+    let gender = req.body.gender
+    /* let isActive = req.body.isActive*/
+    let role = req.body.role 
+
+    UserModel.updateOne({_id: id},{firstName:firstName,lastName:lastName,email:email,password:password,gender:gender,role:role},function(err,data){
+        if(err){
+            console.log(err)
+            res.json({msg:"Something went wrong!!!",status:-1,data:err})
+        }else{
+            res.json({msg:"updated...",status:200,data:data})
+        }
+    })
 }
