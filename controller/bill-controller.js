@@ -60,8 +60,27 @@ module.exports.getById = function(req,res){
 
 }
 
+// fetch data like Table Format
+module.exports.getByUserIdTable = function(req,res){
 
-// For Calculate Total Bill Amount
+    let userId = req.params.userId;
+    
+    //REST 
+    BillModel.find({user:userId},function(err,bill){
+        if(err){
+            console.log(err)
+            res.json({msg:"Something went wrong!!!",status:-1,data:err})
+        }else{
+            res.json({msg:"My TableWise Bill is...",status:200,data:bill})
+
+        }
+
+    })
+
+}
+
+
+// For Calculate Total Bill Amount like 100+200=300
 
 module.exports.getByUserId = function(req,res){
 
@@ -88,16 +107,17 @@ module.exports.getByUserId = function(req,res){
 
 }
 
+// count 
 module.exports.getTotalBill = function(req,res){
 
     
-   /*  let userId = req.params.userId */
+    let userId = req.params.userId
     //REST 
-    BillModel.find().exec(function(err,bill){
+    BillModel.find({user:userId},function(err,bill){
         if(err){
-            res.json({msg:"Something went wrong!!!",status:-1,data:err})
+            res.json({msg:"Something went wrong!!!",status:-1,databillcount:err})
         }else{
-            res.json({msg:"Your Bill is..",status:200,data: bill.length})
+            res.json({msg:"Your Bill is..",status:200,databillcount: bill.length})
 
         }
 
@@ -122,15 +142,17 @@ module.exports.deleteBill = function(req,res){
 module.exports.updateBill = function(req,res){
 
      
-    let billId =req.body.billId 
+    let billId = req.params.billId 
     let billName =req.body. billName
     let billCategoryName =req.body.billCategoryName
+    let billAmount = req.body.billAmount
+    let billDueDate = req.body.billDueDate
 
-    BillModel.updateOne({_id:billId},{billName:billName,billCategoryName:billCategoryName},function(err,data){
+    BillModel.updateOne({_id:billId},{billName:billName,billCategoryName:billCategoryName,billDueDate:billDueDate,billAmount:billAmount},function(err,data){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
-            res.json({msg:"updated...",status:200,data:data})
+            res.json({msg:"Bill Data Updated",status:200,data:data})
         }
     })
 

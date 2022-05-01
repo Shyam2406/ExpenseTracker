@@ -14,19 +14,16 @@ let ContactusSchema =new mongoose.Schema({
     },
 
     Description:{
-        require: [true, "Email is Required"],
+        require: [true, "Message is Required"],
         type:String
     },
 
     Date:{
         type:Date,
         default: Date.now,
-    },
+    }
 
-    user : {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"user"
-}
+   
 })
 
 //model

@@ -57,7 +57,9 @@ module.exports.getTotalQuery = function (req, res) {
 }
 
 module.exports.deleteMessage = function(req,res){
+    
     let contactusId = req.params.contactusId
+    console.log(contactusId)
 
      
     ContactusModel.deleteOne({"_id":contactusId},function(err,data){

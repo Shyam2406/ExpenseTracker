@@ -91,33 +91,19 @@ app.delete("/incomes/:incomeId",incomeController.deleteIncome)
 
 
 
-//category
-app.post("/categories",categoryController.addCategories)
-app.get("/categories",categoryController.getAllCategories)
-app.delete("/categories/:categoryId",categoryController.deleteCategory)
-app.put("/categories",categoryController.updateCategory)
-
-
-
-//subcategory
-app.post("/subcategories",subcategoryController.addSubcategory)
-app.get("/subcategories",subcategoryController.getAllSubcategories)
-app.delete("/subcategories/:subcategoryId",subcategoryController.deleteSubcategory)
-app.put("/subcategories",subcategoryController.updateSubcategory)
-
-
-
 //Personal Bill
 app.post("/bills",billController.addBill)
 app.get("/bills",billController.getAllBill)
-app.put("/bills",billController.updateBill)
+app.put("/bills/:billId",billController.updateBill)
 // get bill by _id
 app.get("/bills/:billId",billController.getById)
 app.get("/billsbyuser/:userId",billController.getByUserId)
-
 /* app.get("/bills/:billId",billController.getTotalBill) */
+// fetch data like table format
+//table data
+app.get("/billofusertablewise/:userId",billController.getByUserIdTable)
 //user id
-app.get("/billsTotal",billController.getTotalBill)
+app.get("/billsCountTotal/:userId",billController.getTotalBill)
 //delete
 app.delete("/bills/:billId",billController.deleteBill)
 
@@ -145,6 +131,19 @@ app.get("/contactus",contactusController.getAllMessage)
 app.get("/TotalQueryMessage",contactusController.getTotalQuery)
 app.put("/contactus",contactusController.updateMessage)
 app.delete("/contactus/:contactId",contactusController.deleteMessage)
+
+
+//category
+app.post("/categories",categoryController.addCategories)
+app.get("/categories",categoryController.getAllCategories)
+app.delete("/categories/:categoryId",categoryController.deleteCategory)
+app.put("/categories",categoryController.updateCategory)
+
+//subcategory
+app.post("/subcategories",subcategoryController.addSubcategory)
+app.get("/subcategories",subcategoryController.getAllSubcategories)
+app.delete("/subcategories/:subcategoryId",subcategoryController.deleteSubcategory)
+app.put("/subcategories",subcategoryController.updateSubcategory)
 
 
 //from html page to database

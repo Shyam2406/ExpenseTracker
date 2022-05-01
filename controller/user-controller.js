@@ -29,7 +29,8 @@ module.exports.addUser = function (req, res) {
         role: role
     })
 
-   /*  UserModel.find({"email":email},function(err,data){
+    UserModel.find({"email":email},function(err,data){
+        console.log(data.lenth);
         if(data && data.lenth!= 0){
             res.json({status:-1,data:req.body,msg:"email already used"})
         }else{
@@ -44,19 +45,21 @@ module.exports.addUser = function (req, res) {
         }
 
 
-    }) */
+    })
+
+  
 
     
-            user.save(function (err, data) {
+         /*    user.save(function (err, data) {
                 if (err) {
                     res.json({ msg: "Something Went Wrong", data: err, status: -1 })//-1  [ 302 404 500 ]
                 } else {
-                    res.json({ msg: "User Registration Success", data: data, status: 200 })//http status code 
+                    res.json({ msg: "User Registration Success", data: data.lenth, status: 200 })//http status code 
                 }
 
 
 
-    })
+    }) */
    
 
 }
