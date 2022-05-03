@@ -28,10 +28,11 @@ module.exports.addUser = function (req, res) {
         gender: gender,
         role: role
     })
-
+    
     UserModel.find({"email":email},function(err,data){
-        console.log(data.lenth);
-        if(data && data.lenth!= 0){
+       
+        
+        if(data && data.length!= 0){
             res.json({status:-1,data:req.body,msg:"email already used"})
         }else{
             user.save(function (err, data) {
@@ -50,7 +51,7 @@ module.exports.addUser = function (req, res) {
   
 
     
-         /*    user.save(function (err, data) {
+          /*   user.save(function (err, data) {
                 if (err) {
                     res.json({ msg: "Something Went Wrong", data: err, status: -1 })//-1  [ 302 404 500 ]
                 } else {

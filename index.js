@@ -130,7 +130,7 @@ app.post("/contactus",contactusController.addMessage)
 app.get("/contactus",contactusController.getAllMessage)
 app.get("/TotalQueryMessage",contactusController.getTotalQuery)
 app.put("/contactus",contactusController.updateMessage)
-app.delete("/contactus/:contactId",contactusController.deleteMessage)
+app.delete("/contactus/:contactusId",contactusController.deleteMessage)
 
 
 //category
